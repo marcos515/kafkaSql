@@ -1,0 +1,14 @@
+﻿{
+    "host": "localhost",
+    "user": "root",
+    "database": "kafkaSQL",
+    "password": "123mudar",
+    "waitForConnections": true,
+    "connectionLimit": 1000,
+    "queueLimit": 10000,
+    "tableName":"log",
+    "binding": [
+        "dispositivoId-dispositivoId",
+        "message-message"
+    ]
+  }

@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "kafka-node": "^5.0.0",
+    "kafkajs": "^1.15.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.2.5"
+  }
+}

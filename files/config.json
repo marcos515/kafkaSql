@@ -6,9 +6,13 @@
     "waitForConnections": true,
     "connectionLimit": 1000,
     "queueLimit": 10000,
-    "tableName":"log",
+    "tableName":"dados",
+    "values":true,
     "binding": [
+        "ts-ts",
         "dispositivoId-dispositivoId",
-        "message-message"
+        "name-name",
+        "value-value",
+        "unity-unidade"
     ]
   }

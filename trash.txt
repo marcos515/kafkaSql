@@ -1,0 +1,1 @@
+{"ts":1616592533651,"dispositivoId":"11","values":[{"name":"vazao","value":0,"unity":"L/H"},{"name":"vazao2","value":0,"unity":"L/H"},{"name":"vazao3","value":0,"unity":"L/H"},{"name":"vazao4","value":0,"unity":"L/H"}]}

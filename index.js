@@ -23,20 +23,30 @@ var options = {
         var consumer = kafka.consumer(kafkaConfig.host, kafkaConfig.topic)
         consumer.on("message", async (message) => {
             var msg = json(message.value)
-
-           
+            var header = json(message.value)
+            if (msg.values && config.values) {
                 let data = split(config.binding, 0)
                 let data2 = JSON.stringify(split(config.binding, 1))
-                var query = `INSERT INTO ${config.tableName} (\`ts\`,${data2.replace("[", "").replace("]", "").split('"').join("`")}) VALUES (${parseValuesSql(data, msg)})`
-                console.log(query)
-                try {
-                    await main(options, query)
-                } catch (err) {
-                    console.log(err)
+                delete header.values
+
+
+                for (let index = 0; index < msg.values.length; index++) {
+                    header.value = msg.values[index]
+                    var query = `INSERT INTO ${config.tableName} (${data2.replace("[", "").replace("]", "").split('"').join("`")}) VALUES (${parseValuesSql(data, header)})`
+                    console.log(query)
+
+                    try {
+                        await main(options, query)
+                    } catch (err) {
+                        console.log(err)
+                    }
                 }
-            
-            //console.log(msg)
-            //await main(options, query)
+
+
+
+
+
+            }
         })
 
     })()
@@ -95,10 +105,13 @@ function search(Skey, json) {
 }
 
 function parseValuesSql(keys, msg) {
-    var values =  `"${new Date().getTime()}",`
-    
+   // var values = `"${new Date().getTime()}",`
+   var values = ""
     for (let index = 0; index < keys.length; index++) {
         let s = search(keys[index], msg)
+        if (typeof s == "object") {
+            s = search(keys[index], s)
+        }
         if (keys.length - 1 == index) {
             values += `"${(s == 'nn' ? 'null' : s)}"`
         } else {
